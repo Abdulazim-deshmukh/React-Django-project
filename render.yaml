@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: react-django-backend
+    env: python
+    plan: free
+    root: .        # keep repo root
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn backend.wsgi
+    envVars:
+      - key: SECRET_KEY
+        value: "-u%k%8yh1spi^hwe!_$(-)jdd7-=bzs)plywz)2pl+#-a3su&m"
+      - key: DEBUG
+        value: "False"
