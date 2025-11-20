@@ -49,7 +49,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['your-backend.onrender.com']
 
 
 # Application definition
@@ -79,6 +79,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
