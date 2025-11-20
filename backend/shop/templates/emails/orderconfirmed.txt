@@ -1,0 +1,12 @@
+Your order has been confirmed!
+
+Order ID: {{ order.id }}
+Total Amount: ₹{{ order.total_price }}
+
+Items:
+{% for item in order.items.all %}
+- {{ item.product.name }} (x{{ item.quantity }}) — ₹{{ item.price }}
+{% endfor %}
+
+
+Thank you for shopping with us!

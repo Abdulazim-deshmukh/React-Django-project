@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <body style="margin:0; padding:0; background:#f6f6f6; font-family:Arial, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f6f6f6; padding:20px 0;">
+      <tr>
+        <td align="center">
+          <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; padding:20px;">
+
+            <!-- HEADER -->
+            <tr>
+              <td style="text-align:center; padding:20px 0;">
+                <h2 style="margin:0; font-size:24px; color:#333;">Your Order is Confirmed 🎉</h2>
+              </td>
+            </tr>
+
+            <!-- ORDER MESSAGE -->
+            <tr>
+              <td style="padding:10px 20px; font-size:16px; color:#555;">
+                <p>Hello {{ order.user.username }},</p>
+                <p>
+                  Your payment for <strong>Order #{{ order.id }}</strong> was successful.
+                  We are now preparing your items!
+                </p>
+
+                <p style="font-size:18px; margin-top:20px;">
+                  <strong>Total Amount:</strong> ₹{{ order.total_price }}
+                </p>
+              </td>
+            </tr>
+
+            <!-- ITEMS LIST -->
+            <tr>
+              <td style="padding:10px 20px;">
+                <h3 style="margin-bottom:10px; color:#333;">Your Ordered Items</h3>
+
+                {% for item in order.items.all %}
+                <table width="100%" cellpadding="10" cellspacing="0" 
+                       style="border:1px solid #eee; border-radius:6px; margin-bottom:15px;">
+                  <tr>
+                    <td style="vertical-align:top;">
+                      <p style="margin:0; font-size:16px; color:#333;">
+                        <strong>{{ item.product.name }}</strong>
+                      </p>
+                      <p style="margin:4px 0; font-size:14px; color:#777;">
+                        Quantity: {{ item.quantity }}
+                      </p>
+                      <p style="margin:4px 0; font-size:14px; color:#777;">
+                        Price: ₹{{ item.price }}
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+                {% endfor %}
+              </td>
+            </tr>
+
+            
+
+            <!-- FOOTER -->
+            <tr>
+              <td style="padding:20px; text-align:center; color:#888; font-size:14px;">
+                We will notify you once your items are shipped 🚚<br><br>
+                Thank you for shopping with us ❤️
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
