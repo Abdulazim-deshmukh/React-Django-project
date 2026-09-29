@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const API_BASE = "http://localhost:8000/api";
+// const API_BASE = "https://abdulazim.pythonanywhere.com/api";
+
 
 export default function Home() {
   const navigate = useNavigate();

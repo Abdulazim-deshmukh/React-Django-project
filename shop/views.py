@@ -1,32 +1,30 @@
-from rest_framework import viewsets, permissions
-from rest_framework.response import Response
-from rest_framework.decorators import action, api_view, permission_classes
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import status
-from .models import Product
-from .serializers import ProductSerializer
-from .models import Cart
-from .serializers import CartSerializer
-from .models import Category
-from .serializers import CategorySerializer
-from .models import Order
-from .models import OrderItem
-from .serializers import OrderSerializer
-from .models import Address
-from .serializers import AddressSerializer
-from rest_framework.permissions import AllowAny,  IsAuthenticated
-from django.http import JsonResponse
-import razorpay
-import hmac
-import hashlib
-import json
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
+from django.http import JsonResponse
 from django.template.loader import render_to_string
-client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
+from rest_framework import viewsets, status, permissions
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 
+import razorpay
+from django.conf import settings
+client = settings.RAZORPAY_CLIENT
 
+# import hmac
+# import hashlib
+# import json
+
+# Import all models and serializers from the same app
+from .models import Product, Cart, Category, Order, OrderItem, Address
+from .serializers import (
+    ProductSerializer,
+    CartSerializer,
+    CategorySerializer,
+    OrderSerializer,
+    AddressSerializer,
+)
 
 
 
@@ -100,6 +98,8 @@ def checkout(request):
     """
     Checkout API: Creates order for COD or Razorpay payment
     """
+    
+
     user = request.user
     payment_method = request.data.get("payment_method", "COD").upper()
     address = request.data.get("address")
@@ -116,6 +116,7 @@ def checkout(request):
 
     # Calculate total amount
     total = sum(item.product.price * item.quantity for item in cart_items)
+    
 
     # Create order
     order = Order.objects.create(
@@ -148,12 +149,13 @@ def checkout(request):
 
     elif payment_method == "RAZORPAY":
         try:
+            
             razorpay_order = client.order.create({
                 "amount": int(total * 100),  # Razorpay expects amount in paise
                 "currency": "INR",
                 "payment_capture": "1",
             })
-
+            
             # Store Razorpay order ID
             order.razorpay_order_id = razorpay_order["id"]
             order.save()
@@ -166,6 +168,7 @@ def checkout(request):
             }, status=status.HTTP_201_CREATED)
 
         except Exception as e:
+            
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     else:

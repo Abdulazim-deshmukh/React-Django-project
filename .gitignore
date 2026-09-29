@@ -6,8 +6,6 @@ __pycache__/
 *.pyo
 *.pyd
 *.log
-
-# Django specific
 db.sqlite3
 media/
 staticfiles/
@@ -15,8 +13,8 @@ staticfiles/
 *.mo
 *.cover
 
-# Ignore Django secrets
-backend/settings.py
+# Django secrets
+
 
 # Environment variables
 .env
@@ -33,8 +31,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnp
 .pnp.js
-
-# Environment files
 .env.local
 .env.development.local
 .env.test.local
@@ -43,6 +39,7 @@ yarn-error.log*
 # ----------------------
 # Virtual Environment
 # ----------------------
+env/
 venv/
 
 # ----------------------
@@ -65,3 +62,18 @@ venv/
 *.bak
 *.tmp
 coverage/
+# Environment variables
+.env
+*.env
+
+# Database backups / migration data
+db_backup.sqlite3
+data.json
+
+# Local SQLite database
+db.sqlite3
+
+# Django generated files
+staticfiles/
+__pycache__/
+*.pyc
