@@ -47,5 +47,4 @@ urlpatterns = [
     path("api/razorpay/verify-payment/", verify_payment, name="verify_payment"),
  
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
