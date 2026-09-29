@@ -4,7 +4,7 @@
 // import { useNavigate, useLocation } from "react-router-dom";
 // import "./productlist.css";
 
-// const API_BASE = "http://localhost:8000/api";
+// const API_BASE = process.env.REACT_APP_API_BASE + "/api";
 
 // export default function ProductList() {
 //   const [products, setProducts] = useState([]);
@@ -89,7 +89,7 @@
 //                   src={
 //                     p.image.startsWith("http")
 //                       ? p.image
-//                       : `http://localhost:8000${p.image}`
+//                       : `${process.env.REACT_APP_API_BASE}${p.image}`
 //                   }
 //                   alt={p.name}
 //                   className="product-image"
@@ -143,7 +143,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = process.env.REACT_APP_API_BASE + "/api";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -442,7 +442,7 @@ export default function ProductList() {
               >
                 {p.image ? (
                   <img
-                    src={p.image.startsWith("http") ? p.image : `http://localhost:8000${p.image}`}
+                    src={p.image.startsWith("http") ? p.image : `${process.env.REACT_APP_API_BASE}${p.image}`}
                     alt={p.name}
                     style={styles.productImage}
                   />

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE = "http://localhost:8000/api/auth";
+const API_BASE = process.env.REACT_APP_API_BASE + "/api/auth";
 
 export default function Logout() {
   const navigate = useNavigate();
