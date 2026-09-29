@@ -19,8 +19,17 @@ from django.urls import path, include
 from rest_framework import routers
 from shop.views import ProductViewSet, CartViewSet, CategoryViewSet, OrderViewSet, checkout, verify_payment, AddressViewSet
 from django.conf import settings
-from django.conf.urls.static import static
+from django.http import FileResponse, Http404
+import os
 from shop import auth_views  
+
+def serve_media(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+
+    if not os.path.exists(file_path):
+        raise Http404("Media file not found")
+
+    return FileResponse(open(file_path, "rb"))
 
 
 router = routers.DefaultRouter()
@@ -47,4 +56,6 @@ urlpatterns = [
     path("api/razorpay/verify-payment/", verify_payment, name="verify_payment"),
  
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [
+    path('media/<path:path>', serve_media),
+]
